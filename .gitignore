@@ -1,2 +1,3 @@
 application/config/config.php
 application/config/email.php
+application/config/constants.php
