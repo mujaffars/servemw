@@ -73,6 +73,6 @@ $route['searchCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/se
 $route['getCustomerAutocomp'] = "MwTransaction_Controller/MwTransaction_Controller/getCustomerAutocomp";
 
 $route['createInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/createInvoice";
-$route['createInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/listInvoice";
+$route['listInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/listInvoice";
 $route['searchInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/searchInvoice";
 

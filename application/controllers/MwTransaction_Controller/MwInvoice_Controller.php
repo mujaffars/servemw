@@ -9,7 +9,7 @@ class MwInvoice_Controller extends CI_Controller {
         $this->load->model('MwTransaction/Mw_invoice_Model');
     }
 
-    public function createInvoice() { 
+    public function createInvoice() {
         $returnData = $this->Mw_invoice_Model->createInvoice();
         echo $this->encdec->returnjson($returnData);
     }

@@ -13,9 +13,9 @@ class Mw_invoice_Model extends CI_Model {
 
         $insert_array = array(
             "user_id" => 1,
-            "c_id" => 2,
-            "summary" => $data->summary,
-            "amount" => $data->amount,
+            "c_id" => $data->cust_id,
+            "summary" => $data->invSummary,
+            "amount" => $data->invTotalAmt,
             "billimg_name" => ''
         );
 
@@ -23,24 +23,24 @@ class Mw_invoice_Model extends CI_Model {
         $message = "Error While Create Invoice";
 
         $this->db->trans_start();
-        if ($this->db->insert("mw_service", $result_array)) {
+        if ($this->db->insert("mw_service", $insert_array)) {
             $flag = 0;
-            $message = "Customer created successfully";
+            $message = "Invoice created successfully";
         }
 
         if ($this->db->trans_status() == FALSE) {
             $this->db->trans_rollback();
             $resultdata['code'] = 1;
             $resultdata['data'] = [];
-            $resultdata['result'] = 'Erro while Creating customer';
+            $resultdata['result'] = 'Erro while Creating Invoice';
         } else {
             $this->db->trans_commit();
-            $resuldata['code'] = $flag;
-            $resuldata['data'] = [];
-            $resuldata['result'] = $message;
+            $resultdata['code'] = $flag;
+            $resultdata['data'] = [];
+            $resultdata['result'] = $message;
         }
 
-        return $resuldata;
+        return $resultdata;
     }
 
     public function listInvoice() {
@@ -74,6 +74,23 @@ class Mw_invoice_Model extends CI_Model {
         }
     }
 
+    public function getAllInvoices($params) {
+        $this->db->trans_start();
+
+        $this->db->select('*');
+        foreach ($params AS $pKey => $pVal) {
+            $this->db->where($pKey . "='" . $pVal . "'");
+        }
+        $this->db->from('mw_service');
+        $custRow = $this->db->get()->result();
+
+        if ($custRow) {
+            return $custRow;
+        } else {
+            return null;
+        }
+    }
+    
     public function searchInvoice() {
         $this->db->trans_start();
         $data = $this->encdec->loadjson();
