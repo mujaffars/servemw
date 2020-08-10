@@ -60,7 +60,7 @@ $route['test'] = 'Welcome/test';
 
 /* * ********************************************************************************************************** */
 
-$route['avoidCI'] = ['Welcome', 'Motowork', 'MwTransaction_Controller', 'MwInvoice_Controller', 'Login_Controller']; //
+$route['avoidCI'] = ['Welcome', 'Login_Controller']; //
 /* Login Route */
 $route['UserLogin'] = "Authenticate_Controller/Login_Controller/UserLogin";
 // $route['logout'] 			= "Authenticate_Controller/Login_Controller/logout";

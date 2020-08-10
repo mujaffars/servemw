@@ -12,7 +12,7 @@ class Mw_invoice_Model extends CI_Model {
         $data = $this->encdec->loadjson();
 
         $insert_array = array(
-            "user_id" => 1,
+            "user_id" => $this->UserId,
             "c_id" => $data->cust_id,
             "summary" => $data->invSummary,
             "amount" => $data->invTotalAmt,
@@ -52,6 +52,7 @@ class Mw_invoice_Model extends CI_Model {
         $message = "Error While Create Invoice";
 
         $this->db->select('*');
+        $this->db->where('user_id = ' . $this->UserId);
         $this->db->from('mw_service');
 
         return $this->db->get()->result();
@@ -64,6 +65,7 @@ class Mw_invoice_Model extends CI_Model {
         foreach ($params AS $pKey => $pVal) {
             $this->db->where($pKey . "='" . $pVal . "'");
         }
+        $this->db->where('user_id = ' . $this->UserId);
         $this->db->from('mw_service');
         $custRow = $this->db->get()->row();
 
@@ -82,6 +84,7 @@ class Mw_invoice_Model extends CI_Model {
             $this->db->where($pKey . "='" . $pVal . "'");
         }
         $this->db->from('mw_service');
+        $this->db->where('user_id = ' . $this->UserId);
         $custRow = $this->db->get()->result();
 
         if ($custRow) {

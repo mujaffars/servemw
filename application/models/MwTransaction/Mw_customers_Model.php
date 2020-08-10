@@ -10,6 +10,7 @@ class Mw_customers_Model extends CI_Model {
     }
 
     public function createCustomer() {
+
         $data = $this->encdec->loadjson();
 
         $custData = $this->getCustomer(array('vehicle_no' => $data->vehicle_no));
@@ -19,7 +20,7 @@ class Mw_customers_Model extends CI_Model {
         if ($custValid['datavalid']) {
             if (!$custData) {
                 $result_array = array(
-                    "user_id" => 1,
+                    "user_id" => $this->UserId,
                     "first_name" => $data->firstname,
                     "last_name" => $data->lastname,
                     "vehicle_no" => $data->vehicle_no,
@@ -56,6 +57,7 @@ class Mw_customers_Model extends CI_Model {
     }
 
     public function listCustomer() {
+
         $data = $this->encdec->loadjson();
 
         $this->db->trans_start();
@@ -65,6 +67,7 @@ class Mw_customers_Model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('mw_customers');
+        $this->db->where('user_id = ' . $this->UserId);
         $this->db->order_by('id DESC');
 
         return $this->db->get()->result();
@@ -79,7 +82,7 @@ class Mw_customers_Model extends CI_Model {
         }
         $this->db->from('mw_customers');
         $custRow = $this->db->get()->row();
-        
+
         if ($custRow) {
             return $custRow;
         } else {
@@ -88,8 +91,8 @@ class Mw_customers_Model extends CI_Model {
     }
 
     public function searchCustomer($searchFor) {
-        $this->db->trans_start();        
-        return $this->getCustomer($searchFor);        
+        $this->db->trans_start();
+        return $this->getCustomer($searchFor);
     }
 
     public function validateCreateCust($postData) {
