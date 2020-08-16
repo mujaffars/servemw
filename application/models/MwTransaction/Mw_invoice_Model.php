@@ -54,7 +54,8 @@ class Mw_invoice_Model extends CI_Model {
         $this->db->select('*');
         $this->db->where('user_id = ' . $this->UserId);
         $this->db->from('mw_service');
-
+        $this->db->order_by('id DESC');
+        
         return $this->db->get()->result();
     }
 
