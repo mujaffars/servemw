@@ -23,7 +23,8 @@ class MwTransaction_Controller extends CI_Controller {
     public function searchCustomer() {
         $data = $this->encdec->loadjson();
         $array = json_decode(json_encode($data), true);
-
+        
+        $searchForArray = array();
         if (isset($array['vehicleNo']) && $array['vehicleNo'] !== "") {
             $searchForArray['vehicle_no'] = $array['vehicleNo'];
         } else if (isset($array['mobile_no']) && $array['mobile_no'] !== "") {
@@ -41,13 +42,14 @@ class MwTransaction_Controller extends CI_Controller {
                 // Get all the invoices
                 $invSearchArr = array('c_id' => $returnData->id);
                 $custInvoices = $this->Mw_invoice_Model->getAllInvoices($invSearchArr);
+                
                 $custInvoices = json_decode(json_encode($custInvoices), true);
                 $arrInvoices = array();
                 
                 if ($custInvoices) {
                     foreach ($custInvoices As $key => $rowInvoice) {
                         $arrInvoices[$key] = $rowInvoice;
-                        $arrInvoices[$key]['formDate'] = date('d-M-Y', strtotime($rowInvoice['createdon']));
+                        $arrInvoices[$key]['formDate'] = date('d-M-Y', strtotime($rowInvoice['invdate']));
                     }
                 }
                 $custInvoiceDtl['invoice'] = $arrInvoices;
@@ -64,4 +66,19 @@ class MwTransaction_Controller extends CI_Controller {
         echo $this->encdec->returnjson($returnData);
     }
 
+    public function updateCustomer() {
+        $data = $this->encdec->loadjson();
+        $array = json_decode(json_encode($data), true);
+        
+        $returnData = $this->Mw_customers_Model->updateCustomer($array);
+        echo $this->encdec->returnjson($returnData);
+    }
+    
+    public function deleteCustomer(){
+        $data = $this->encdec->loadjson();
+        $array = json_decode(json_encode($data), true);
+        
+        $returnData = $this->Mw_customers_Model->deleteCustomer($array['cust_id']);
+        echo $this->encdec->returnjson($returnData);
+    }
 }

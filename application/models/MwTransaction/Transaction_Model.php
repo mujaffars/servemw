@@ -26,6 +26,9 @@ class Transaction_Model extends CI_Model {
        
         $this->db->trans_start();
 
+        $invValid = $this->validateCreateInv($data);
+        
+        if($invValid){
         $result_array=array(
             "UserId"=>$this->UserId,
             "TransactionTypeId"=>$data->TransactionTypeId,
@@ -64,7 +67,7 @@ class Transaction_Model extends CI_Model {
         }
         
         return $resuldata;
-        
+        }
         
     }
 
