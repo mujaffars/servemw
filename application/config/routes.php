@@ -63,16 +63,22 @@ $route['test'] = 'Welcome/test';
 $route['avoidCI'] = ['Welcome', 'Login_Controller']; //
 /* Login Route */
 $route['UserLogin'] = "Authenticate_Controller/Login_Controller/UserLogin";
+
+$route['encdnc'] = "Welcome/encdnc";
+$route['getdata'] = "Welcome/getdata";
+
 // $route['logout'] 			= "Authenticate_Controller/Login_Controller/logout";
 //Creat Deal Route
 $route['createDeal'] = "Transaction_Controller/Transaction_Controller/createDeal";
 
+$route['dashboardDtl'] = "MwTransaction_Controller/MwTransaction_Controller/dashboardDtl";
 $route['createCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/createCustomer";
 $route['listCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/listCustomer";
 $route['deleteCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/deleteCustomer";
 $route['updateCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/updateCustomer";
 $route['searchCustomer'] = "MwTransaction_Controller/MwTransaction_Controller/searchCustomer";
 $route['getCustomerAutocomp'] = "MwTransaction_Controller/MwTransaction_Controller/getCustomerAutocomp";
+$route['listReminders'] = "MwTransaction_Controller/MwTransaction_Controller/listReminders";
 
 $route['createInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/createInvoice";
 $route['listInvoice'] = "MwTransaction_Controller/MwInvoice_Controller/listInvoice";

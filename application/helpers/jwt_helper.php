@@ -44,6 +44,7 @@ function validate_token() {
 
     $CI = &get_instance();
     $tokendata = json_decode($CI->encdec->decrypt(GLOBAL_TOKEN));
+    
     $flag = FALSE;
     if (isset($tokendata)) {
         $userdata = $tokendata->data;

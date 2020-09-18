@@ -10,6 +10,11 @@ class MwTransaction_Controller extends CI_Controller {
         $this->load->model('MwTransaction/Mw_invoice_Model');
     }
 
+    public function dashboardDtl(){
+        $returnData = $this->Mw_invoice_Model->dashboardDtl();
+        echo $this->encdec->returnjson($returnData);
+    }
+    
     public function createCustomer() {
         $returnData = $this->Mw_customers_Model->createCustomer();
         echo $this->encdec->returnjson($returnData);
@@ -20,6 +25,11 @@ class MwTransaction_Controller extends CI_Controller {
         echo $this->encdec->returnjson($returnData);
     }
 
+    public function listReminders(){
+        $returnData = $this->Mw_customers_Model->listReminders();
+        echo $this->encdec->returnjson($returnData);
+    }
+    
     public function searchCustomer() {
         $data = $this->encdec->loadjson();
         $array = json_decode(json_encode($data), true);
@@ -33,7 +43,11 @@ class MwTransaction_Controller extends CI_Controller {
         if (isset($array['id']) && $array['id'] !== "") {
             $searchForArray['id'] = $array['id'];
         }
-
+        
+//        echo '<pre>';
+//        print_r($searchForArray);
+//        echo '</pre>';
+//        exit;
         $returnData = $this->Mw_customers_Model->searchCustomer($searchForArray);
 
         if ($array['getfor'] == "custinv") {
